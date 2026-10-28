@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HDXI – High Definition Computing Environment</title>
+<style>
+/* ---------- tokens: change the look here ---------- */
+:root{
+  --bg:#141414;          /* page */
+  --panel:#1b1b1d;       /* boxes */
+  --panel-hi:#2a2a2d;    /* tab / button faces */
+  --line:#3a3a3e;        /* borders */
+  --text:#b9b9bd;        /* body copy */
+  --head:#f2f2f2;        /* headings */
+  --accent:#3f78c4;      /* active tab, rules, links */
+  --accent-dk:#17284a;   /* tinted panel gradient */
+  --serif:Georgia,"DejaVu Serif",serif;
+  --sans:Verdana,"DejaVu Sans",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{
+  margin:0;color:var(--text);font:13px/1.55 var(--serif);
+  /* optional: drop a tileable 8x1024 gradient or noise at img/bg.png */
+  background:radial-gradient(ellipse at 50% 0,#2b2b2e 0,#141414 70%) fixed,var(--bg);
+}
+a{color:#8fb4e8}
+a:hover{color:#fff}
+a:focus-visible,.tab:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+#wrap{max-width:950px;margin:18px auto;border:1px solid #000;box-shadow:0 0 0 1px #2c2c2f,0 12px 40px #000;background:var(--panel)}
+
+/* ---------- header ---------- */
+#top{display:flex;align-items:stretch;background:linear-gradient(#2c2c2f,#161618);border-bottom:1px solid #000}
+.slot{position:relative;overflow:hidden;background:#0d0d0e;color:#55555a;font:10px var(--sans);display:flex;align-items:center;justify-content:center;text-align:center}
+.slot::before{content:attr(data-label)}
+.slot i{position:absolute;inset:0;background-position:center;background-size:cover}
+#logo{width:76px;height:76px;flex:none;border-right:1px solid #000}
+#nav{display:flex;align-items:flex-end;padding:0 14px;flex:1;gap:1px}
+#nav a{font:bold 10px var(--sans);letter-spacing:.04em;text-transform:uppercase;text-decoration:none;color:#ddd;padding:8px 12px;background:linear-gradient(#3b3b3f,#232326);border:1px solid #000;border-bottom:0;margin-bottom:12px}
+#nav a:hover{background:linear-gradient(#4a4a50,#2d2d31);color:#fff}
+#nav a.on{background:#000;color:#fff}
+
+/* ---------- hero ---------- */
+#hero{height:270px;border-bottom:1px solid #000}
+
+/* ---------- tab strip (like the PS3 / PSP / PS2 bar) ---------- */
+#tabs{display:flex}
+.tab{flex:1;text-align:center;padding:9px 0;text-decoration:none;font:italic 12px var(--sans);letter-spacing:.35em;color:#cfcfd3;background:linear-gradient(#37373b,#1f1f22);border:1px solid #000;border-left:0}
+.tab:first-child{border-left:1px solid #000}
+.tab.on{background:linear-gradient(#5b93da,#244b86);color:#fff}
+.tab:hover{color:#fff}
+
+/* ---------- two promo panels ---------- */
+#promos{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#000;margin-top:2px}
+.promo .slot{height:240px}
+.promo p{margin:0;padding:8px 12px;background:linear-gradient(#26262a,#18181a);border-top:2px solid var(--accent);font-size:12px}
+.promo p b{font:italic 12px var(--sans);letter-spacing:.25em;color:#fff;margin-right:10px}
+
+/* ---------- body: sidebar + copy ---------- */
+#body{display:grid;grid-template-columns:230px 1fr;gap:24px;padding:22px 20px 26px;background:linear-gradient(var(--accent-dk) 0,var(--panel) 260px)}
+#side{align-self:start;border:1px solid var(--line);background:#101012;padding:6px}
+#side a{display:block;margin:4px 0;padding:8px 10px;color:#e4e4e6;text-decoration:none;font:bold 11px var(--sans);background:linear-gradient(#34343a,#1d1d20);border:1px solid #000;border-radius:2px}
+#side a:hover{background:linear-gradient(#41414a,#26262b);color:#fff}
+h2{font:bold 17px var(--serif);color:var(--head);margin:0 0 4px}
+section{padding:0 0 14px;margin:0 0 14px;border-bottom:1px solid var(--line)}
+section:last-child{border:0;margin:0}
+p{margin:0 0 .8em;max-width:62ch}
+code{font:12px "DejaVu Sans Mono",monospace;color:#d6e3f7;background:#0c0c0e;padding:1px 4px;border:1px solid var(--line)}
+pre{margin:0 0 .8em;padding:10px 12px;background:#0c0c0e;border:1px solid var(--line);overflow-x:auto;font:12px/1.5 "DejaVu Sans Mono",monospace;color:#d6e3f7}
+dl{margin:0}
+dt{font:bold 12px var(--sans);color:var(--head);margin-top:8px}
+dd{margin:0 0 4px}
+
+footer{padding:10px 20px;border-top:1px solid #000;background:#0e0e10;font:10px var(--sans);color:#77777c;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media(max-width:760px){
+  #body{grid-template-columns:1fr}
+  #promos{grid-template-columns:1fr}
+    #nav{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+<div id="wrap">
+
+  <header id="top">
+    <!-- DECAL: logo tile, shows at 76x76. Make it 152x152 PNG. -->
+    <div class="slot" id="logo" data-label="logo"><i style="background-image:url(img/logo.png)"></i></div>
+    <nav id="nav" aria-label="Main">
+      <a class="on" href="#about">About</a>
+      <a href="#download">Download</a>
+      <a href="#hdx">Ports</a>
+      <a href="#docs">Docs</a>
+      <a href="https://github.com/daveydavy333/HDXI">Source</a>
+    </nav>
+  </header>
+
+  <!-- DECAL: hero banner, shows at 950x270. Make it 1900x540. -->
+  <div class="slot" id="hero" data-label="hero banner 1900 x 540">
+    <i style="background-image:url(img/hero.png)"></i>
+  </div>
+
+  <div id="tabs">
+    <a class="tab on" href="#about">HDXI</a>
+    <a class="tab" href="#hdx">HDX</a>
+    <a class="tab" href="#hdxp">HDXP</a>
+  </div>
+
+  <div id="promos">
+    <div class="promo">
+      <!-- DECAL: shows at 475x240. Make it 950x480. -->
+      <div class="slot" data-label="promo left 950 x 480"><i style="background-image:url(img/promo-left.png)"></i></div>
+      <p><b>XQ2</b>Meet the mascot.</p>
+    </div>
+    <div class="promo">
+      <div class="slot" data-label="promo right 950 x 480"><i style="background-image:url(img/promo-right.png)"></i></div>
+      <p><b>HDX</b>A ports manager in plain shell.</p>
+    </div>
+  </div>
+
+  <main id="body">
+    <aside id="side" aria-label="Sections">
+      <a href="#about">» About HDXI</a>
+      <a href="#download">» Download</a>
+      <a href="#hdx">» hdx</a>
+      <a href="#hdxp">» The hdxp ports tree</a>
+      <a href="#specs">» Technical specifications</a>
+      <a href="#docs">» Documentation</a>
+      <a href="https://github.com/daveydavy333/HDXI">» GitHub</a>
+    </aside>
+
+    <div>
+      <section id="about">
+        <h2>HDXI</h2>
+        <p>HDXI, the High Definition Computing Environment, is a small independent Linux distribution built around a BSD-style ports system written in shell. It is highly experimental: the base is a single tarball you unpack onto a partition, and everything else is a port you build yourself.</p>
+        <p>It boots on UEFI machines, runs a Wayland desktop with dwl, foot and Firefox, and has working Wi-Fi on real hardware.</p>
+      </section>
+
+      <section id="download">
+        <h2>Download</h2>
+        <p>The base tarball is published on the releases page of the GitHub repository. Installation media may come later; for now you install from any Linux live system by following the installation guide.</p>
+        <p><a href="https://github.com/daveydavy333/HDXI">HDXI on GitHub</a> – releases, installation guide, build scripts.</p>
+      </section>
+
+      <section id="hdx">
+        <h2>hdx</h2>
+        <p>hdx is the port manager. It reads a port’s <code>make.sh</code>, checks the pinned checksum, builds from source and installs.</p>
+<pre>hdx i util-wpa_supplicant   # install a port
+hdx r util-wpa_supplicant   # remove it
+hdx l                       # list installed
+hdx info devel-libnl        # show description</pre>
+      </section>
+
+      <section id="hdxp">
+        <h2>hdxp</h2>
+        <p>The ports tree lives at <code>/hdxp</code> and is a plain git clone, so updating is <code>git pull</code>. Ports are sorted into four classes.</p>
+        <dl>
+          <dt>base</dt><dd>Kernel, bootloader and other parts the system needs to start.</dd>
+          <dt>util</dt><dd>Command-line tools.</dd>
+          <dt>devel</dt><dd>Libraries and build tools.</dd>
+          <dt>misc</dt><dd>Everything else, including firmware and desktop programs.</dd>
+        </dl>
+        <p style="margin-top:8px"><a href="https://github.com/daveydavy333/hdxp">hdxp on GitHub</a></p>
+      </section>
+
+      <section id="specs">
+        <h2>Technical specifications</h2>
+        <dl>
+          <dt>Kernel</dt><dd>Mainline Linux 6.18 LTS, drivers built in, no initramfs.</dd>
+          <dt>Userland</dt><dd>musl libc and busybox.</dd>
+          <dt>Init</dt><dd>situation, a small shell init.</dd>
+          <dt>Bootloader</dt><dd>Limine, UEFI.</dd>
+          <dt>Desktop</dt><dd>dwl on wlroots, foot terminal, Firefox.</dd>
+          <dt>Packages</dt><dd>Source ports through hdx.</dd>
+        </dl>
+      </section>
+
+      <section id="docs">
+        <h2>Documentation</h2>
+        <p>The installation and network guides are in the main repository. Start with the installation guide if you are setting up HDXI for the first time.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <span>HDXI is a personal, experimental project.</span>
+    <span><a href="https://github.com/daveydavy333/HDXI">HDXI</a> · <a href="https://github.com/daveydavy333/hdxp">hdxp</a></span>
+  </footer>
+</div>
+</body>
+</html>
