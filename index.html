@@ -55,7 +55,7 @@ a:focus-visible,.tab:focus-visible{outline:2px solid #fff;outline-offset:2px}
 /* ---------- two promo panels ---------- */
 #promos{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#000;margin-top:2px}
 .promo .slot{height:240px}
-.promo p{margin:0;padding:8px 12px;background:linear-gradient(#26262a,#18181a);border-top:2px solid var(--accent);font-size:12px}
+.promo p{margin:0;max-width:none;padding:8px 12px;background:linear-gradient(#26262a,#18181a);border-top:2px solid var(--accent);font-size:12px}
 .promo p b{font:italic 12px var(--sans);letter-spacing:.25em;color:#fff;margin-right:10px}
 
 /* ---------- body: sidebar + copy ---------- */
@@ -87,7 +87,7 @@ footer{padding:10px 20px;border-top:1px solid #000;background:#0e0e10;font:10px 
 
   <header id="top">
     <!-- DECAL: logo tile, shows at 76x76. Make it 152x152 PNG. -->
-    <div class="slot" id="logo" data-label="logo"><i style="background-image:url(img/logo.png)"></i></div>
+    <div class="slot" id="logo" data-label=""><i style="background-image:url(img/logo.png)"></i></div>
     <nav id="nav" aria-label="Main">
       <a class="on" href="#about">About</a>
       <a href="#download">Download</a>
