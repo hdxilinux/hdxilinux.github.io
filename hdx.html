@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hdx – HDXI package manager</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="wrap">
+
+  <header id="top">
+    <div class="slot" id="logo" data-label=""><i style="background-image:url(img/logo.png)"></i></div>
+    <nav id="nav" aria-label="Main">
+      <a href="index.html">About</a>
+      <a href="index.html#download">Download</a>
+      <a href="hdxp.html">Ports</a>
+      <a href="index.html#docs">Docs</a>
+      <a href="https://github.com/daveydavy333/HDXI">Source</a>
+    </nav>
+  </header>
+
+  <div id="tabs">
+    <a class="tab" href="index.html" aria-label="HDXI"><i style="background-image:url(img/tab-hdxi.png)"></i><span class="sr">HDXI</span></a>
+    <a class="tab on" href="hdx.html" aria-label="HDX"><i style="background-image:url(img/tab-hdx.png)"></i><span class="sr">HDX</span></a>
+    <a class="tab" href="hdxp.html" aria-label="HDXP"><i style="background-image:url(img/tab-hdxp.png)"></i><span class="sr">HDXP</span></a>
+  </div>
+
+  <nav class="sub" aria-label="hdx sections">
+    <a class="on" href="#what">About hdx</a>
+    <a href="#features">Features</a>
+    <a href="https://github.com/daveydavy333/HDXI">Usage guide</a>
+    <a href="hdxp.html">Ports tree</a>
+  </nav>
+
+  <main class="cols">
+    <aside id="side" aria-label="Sections">
+      <a href="#what">» What is hdx</a>
+      <a href="#ports">» Ports, not binaries</a>
+      <a href="#classes">» Port classes</a>
+      <a href="#base">» Protected base</a>
+      <a href="hdxp.html">» The hdxp ports tree</a>
+      <a href="https://github.com/daveydavy333/HDXI">» Usage guide (GitHub)</a>
+    </aside>
+
+    <div id="what">
+      <!-- DECAL: shows at 320x240 (about). Make it 640 x 480. -->
+      <div class="slot" id="art" data-label="hdx art 640 x 480"><i style="background-image:url(img/hdx-art.png)"></i></div>
+      <h4>Meet hdx</h4>
+      <p>hdx is the package manager of HDXI. It is written entirely in shell and works the way a BSD ports system does: instead of downloading prebuilt packages, it builds software from source on your own machine.</p>
+      <p>Every program in HDXI beyond the base tarball is a port. hdx finds the port, fetches and checks the source, builds it and installs it. Because the whole tool is a handful of readable scripts, you can open it and see exactly what it does.</p>
+    </div>
+
+    <div id="features">
+      <div class="feat" id="ports"><h3>Ports, not binaries</h3>
+        <p>A port is a small folder with a <code>make.sh</code> recipe. It downloads the upstream source, builds it and installs it to <code>/usr/local</code>.</p></div>
+      <div class="feat"><h3>Pinned and verified</h3>
+        <p>Each recipe pins the SHA256 of its source, and the download is checked against it before anything is built.</p></div>
+      <div class="feat"><h3>Dependencies</h3>
+        <p>A port lists what it needs, one port per line, in a <code>deps</code> file.</p></div>
+      <div class="feat" id="classes"><h3>Four port classes</h3>
+        <p><code>base</code> is the system itself, <code>util</code> holds small tools, <code>devel</code> has libraries and build tools, and <code>misc</code> is everything else. The class is the first part of a port’s name, as in <code>util-wpa_supplicant</code>.</p></div>
+      <div class="feat" id="base"><h3>Protected base</h3>
+        <p>Ports in the <code>base</code> class are protected from removal, so you can’t uninstall the init or the kernel by accident.</p></div>
+      <div class="feat"><h3>Asks before it removes</h3>
+        <p>Removing a port shows the binaries hdx found and any uninstall script, then asks first. If a build fails, hdx marks nothing as installed and keeps the source so you can fix it and try again.</p></div>
+      <div class="feat"><h3>A plain git tree</h3>
+        <p>The ports tree lives at <code>/hdxp</code> as an ordinary git clone, so updating it is a <code>git pull</code>.</p></div>
+    </div>
+  </main>
+
+  <footer>
+    <span>HDXI is a personal, experimental project.</span>
+    <span><a href="index.html">HDXI</a> · <a href="hdx.html">hdx</a> · <a href="hdxp.html">hdxp</a></span>
+  </footer>
+</div>
+</body>
+</html>
