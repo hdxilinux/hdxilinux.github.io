@@ -26,10 +26,55 @@
     <a class="tab on" href="hdxp.html" aria-label="HDXP"><i style="background-image:url(img/tab-hdxp.png)"></i><span class="sr">HDXP</span></a>
   </div>
 
-  <div class="soon">
-    <h2>HDXP ports tracker</h2>
-    <p style="margin:0 auto">A graphical view of the ports tree is coming. Until then, browse the ports on <a href="https://github.com/daveydavy333/hdxp">GitHub</a>.</p>
-  </div>
+  <main class="tracker">
+    <div class="tools">
+      <input id="q" type="search" placeholder="Search ports" aria-label="Search ports">
+      <button data-c="all" class="on">All</button>
+      <button data-c="base">base</button>
+      <button data-c="util">util</button>
+      <button data-c="devel">devel</button>
+      <button data-c="misc">misc</button>
+      <span id="count"></span>
+    </div>
+    <div class="list">
+      <div class="hd"><span>Port</span><span>Description</span></div>
+      <div id="list"></div>
+    </div>
+  </main>
+  <script src="ports.js"></script>
+  <script>
+  (function(){
+    var P=(window.PORTS||[]).slice().sort(function(a,b){return a.name<b.name?-1:1}),
+        L=document.getElementById('list'),Q=document.getElementById('q'),N=document.getElementById('count'),c='all';
+    function mk(t,cl,x){var e=document.createElement(t);if(cl)e.className=cl;if(x!=null)e.textContent=x;return e}
+    function draw(){
+      var q=Q.value.toLowerCase(),n=0;L.textContent='';
+      P.forEach(function(p){
+        if(c!=='all'&&p.name.split('-')[0]!==c)return;
+        if(q&&(p.name+' '+p.desc).toLowerCase().indexOf(q)<0)return;
+        n++;
+        var r=mk('details','row'),s=mk('summary'),m=mk('div','more');
+        s.appendChild(mk('span','n',p.name));s.appendChild(mk('span','d',p.desc));
+        m.appendChild(mk('pre','',p.info||p.desc));
+        var meta=[];if(p.ver)meta.push('Version '+p.ver);
+        if(p.deps&&p.deps.length)meta.push('Needs '+p.deps.join(', '));
+        if(meta.length)m.appendChild(mk('small','',meta.join(' \u00b7 ')));
+        r.appendChild(s);r.appendChild(m);L.appendChild(r);
+      });
+      if(!n)L.appendChild(mk('div','empty',P.length?'No ports match.':'No ports list yet. Run gen-ports.sh and put the resulting ports.js next to this page.'));
+      N.textContent=n+' of '+P.length+' ports';
+    }
+    Q.addEventListener('input',draw);
+    document.querySelectorAll('.tools button').forEach(function(b){
+      b.addEventListener('click',function(){
+        c=b.dataset.c;
+        document.querySelectorAll('.tools button').forEach(function(x){x.classList.toggle('on',x===b)});
+        draw();
+      });
+    });
+    draw();
+  })();
+  </script>
 
   <footer>
     <span>HDXI is a personal, experimental project.</span>
