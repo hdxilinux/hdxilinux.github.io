@@ -46,6 +46,7 @@
   <main id="body">
     <aside id="side" aria-label="Sections">
       <a href="#about">» About HDXI</a>
+      <a href="#status">» Status</a>
       <a href="#download">» Download</a>
       <a href="hdx.html">» hdx</a>
       <a href="hdxp.html">» The hdxp ports tree</a>
@@ -58,7 +59,18 @@
       <section id="about">
         <h2>HDXI</h2>
         <p>HDXI, the High Definition Computing Environment, is a small independent Linux distribution built around a BSD-style ports system written in shell. It is highly experimental: the base is a single tarball you unpack onto a partition, and everything else is a port you build yourself.</p>
-        <p>It boots on UEFI machines, runs a Wayland desktop with dwl, foot and Firefox, and has working Wi-Fi on real hardware.</p>
+        <p>It boots on UEFI machines and has been tested on real hardware, a Lenovo IdeaPad Slim 1 laptop, where it runs a Wayland desktop with dwl, foot and Firefox over working Wi-Fi.</p>
+      </section>
+
+      <section id="status">
+        <h2>Status</h2>
+        <p>What works today, tested in QEMU and on the IdeaPad:</p>
+        <dl>
+          <dt>Boot</dt><dd>UEFI, then Limine, the HDXI kernel, situation and a login prompt.</dd>
+          <dt>Networking</dt><dd>DHCP through a situation service, and Wi-Fi on the IdeaPad’s Atheros card through three ports.</dd>
+          <dt>Desktop</dt><dd>dwl, foot and Firefox, with software rendering. Install them with hdx; the libraries they need are built first.</dd>
+        </dl>
+        <p style="margin-top:8px">Not done yet: BIOS and Secure Boot, Wi-Fi at boot, GPU acceleration, the IdeaPad’s built-in touchpad, and testing on more machines.</p>
       </section>
 
       <section id="download">
@@ -95,8 +107,8 @@ hdx info devel-libnl        # show description</pre>
           <dt>Userland</dt><dd>musl libc and busybox.</dd>
           <dt>Init</dt><dd>situation, a small shell init.</dd>
           <dt>Bootloader</dt><dd>Limine, UEFI.</dd>
-          <dt>Desktop</dt><dd>dwl on wlroots, foot terminal, Firefox.</dd>
-          <dt>Packages</dt><dd>Source ports through hdx.</dd>
+          <dt>Desktop</dt><dd>dwl on wlroots with software rendering, foot terminal, Firefox.</dd>
+          <dt>Packages</dt><dd>Source ports through hdx. Firefox is the one exception: its port installs a prebuilt bundle.</dd>
         </dl>
       </section>
 
