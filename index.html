@@ -59,7 +59,7 @@
       <section id="about">
         <h2>HDXI</h2>
         <p>HDXI, the High Definition Computing Environment, is a small independent Linux distribution built around a BSD-style ports system written in shell. It is highly experimental: the base is a single tarball you unpack onto a partition, and everything else is a port you build yourself.</p>
-        <p>It boots on UEFI machines and has been tested on two real laptops, a Lenovo IdeaPad Slim 1 and an HP EliteBook. On the IdeaPad it runs a Wayland desktop with dwl, foot and Firefox over working Wi-Fi, with GPU-accelerated rendering as an option.</p>
+        <p>It boots on UEFI machines and has been tested on two real laptops, a Lenovo IdeaPad Slim 1 and an HP EliteBook. On both it runs a Wayland desktop with dwl, foot and Firefox over working Wi-Fi, with GPU-accelerated rendering as an option.</p>
       </section>
 
       <section id="status">
@@ -68,10 +68,10 @@
         <dl>
           <dt>Boot</dt><dd>UEFI, then Limine, the HDXI kernel, runit or situation and a login prompt.</dd>
           <dt>Networking</dt><dd>DHCP through the net service, and Wi-Fi on both laptops (Atheros on the IdeaPad, Intel on the EliteBook) through ports for wpa_supplicant, libnl and the card’s firmware.</dd>
-          <dt>Desktop</dt><dd>dwl, foot and Firefox on the IdeaPad and in QEMU, with software rendering by default. Install them with hdx; the libraries they need are built first.</dd>
-          <dt>Graphics</dt><dd>Optional GPU rendering through skunkports (Mesa and a GLES2 build of wlroots). On the IdeaPad’s AMD GPU it runs smoother than software rendering.</dd>
+          <dt>Desktop</dt><dd>dwl, foot and Firefox on both laptops and in QEMU, with software rendering by default. Install them with hdx; the libraries they need are built first.</dd>
+          <dt>Graphics</dt><dd>Optional GPU rendering through skunkports (Mesa and a GLES2 build of wlroots). On both laptops (AMD on the IdeaPad, Intel on the EliteBook) it runs smoother than software rendering.</dd>
         </dl>
-        <p style="margin-top:8px">Not done yet: BIOS and Secure Boot, Wi-Fi at boot, GPU acceleration beyond the IdeaPad’s AMD GPU (the EliteBook has no Intel graphics driver yet), the IdeaPad’s built-in touchpad, and testing on more machines.</p>
+        <p style="margin-top:8px">Not done yet: BIOS and Secure Boot, Wi-Fi at boot, GPU acceleration on other graphics hardware, the laptops’ built-in touchpads, and testing on more machines.</p>
       </section>
 
       <section id="download">
