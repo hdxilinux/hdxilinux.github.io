@@ -59,18 +59,19 @@
       <section id="about">
         <h2>HDXI</h2>
         <p>HDXI, the High Definition Computing Environment, is a small independent Linux distribution built around a BSD-style ports system written in shell. It is highly experimental: the base is a single tarball you unpack onto a partition, and everything else is a port you build yourself.</p>
-        <p>It boots on UEFI machines and has been tested on real hardware, a Lenovo IdeaPad Slim 1 laptop, where it runs a Wayland desktop with dwl, foot and Firefox over working Wi-Fi.</p>
+        <p>It boots on UEFI machines and has been tested on two real laptops, a Lenovo IdeaPad Slim 1 and an HP EliteBook. On the IdeaPad it runs a Wayland desktop with dwl, foot and Firefox over working Wi-Fi, with GPU-accelerated rendering as an option.</p>
       </section>
 
       <section id="status">
         <h2>Status</h2>
-        <p>What works today, tested in QEMU and on the IdeaPad:</p>
+        <p>What works today, tested in QEMU and on two real laptops:</p>
         <dl>
-          <dt>Boot</dt><dd>UEFI, then Limine, the HDXI kernel, situation and a login prompt.</dd>
-          <dt>Networking</dt><dd>DHCP through a situation service, and Wi-Fi on the IdeaPad’s Atheros card through three ports.</dd>
-          <dt>Desktop</dt><dd>dwl, foot and Firefox, with software rendering. Install them with hdx; the libraries they need are built first.</dd>
+          <dt>Boot</dt><dd>UEFI, then Limine, the HDXI kernel, runit or situation and a login prompt.</dd>
+          <dt>Networking</dt><dd>DHCP through the net service, and Wi-Fi on both laptops (Atheros on the IdeaPad, Intel on the EliteBook) through ports for wpa_supplicant, libnl and the card’s firmware.</dd>
+          <dt>Desktop</dt><dd>dwl, foot and Firefox on the IdeaPad and in QEMU, with software rendering by default. Install them with hdx; the libraries they need are built first.</dd>
+          <dt>Graphics</dt><dd>Optional GPU rendering through skunkports (Mesa and a GLES2 build of wlroots). On the IdeaPad’s AMD GPU it runs smoother than software rendering.</dd>
         </dl>
-        <p style="margin-top:8px">Not done yet: BIOS and Secure Boot, Wi-Fi at boot, GPU acceleration, the IdeaPad’s built-in touchpad, and testing on more machines.</p>
+        <p style="margin-top:8px">Not done yet: BIOS and Secure Boot, Wi-Fi at boot, GPU acceleration beyond the IdeaPad’s AMD GPU (the EliteBook has no Intel graphics driver yet), the IdeaPad’s built-in touchpad, and testing on more machines.</p>
       </section>
 
       <section id="download">
@@ -81,11 +82,14 @@
 
       <section id="hdx">
         <h2>hdx</h2>
-        <p>hdx is the port manager. It reads a port’s <code>make.sh</code>, checks the pinned checksum, builds from source and installs.</p>
+        <p>hdx is the port manager. It reads a port’s <code>make.sh</code>, checks the pinned checksum, shows the list of ports it will install and asks first, then builds from source and installs.</p>
 <pre>hdx i util-wpa_supplicant   # install a port
 hdx r util-wpa_supplicant   # remove it
 hdx l                       # list installed
-hdx info devel-libnl        # show description</pre>
+hdx info devel-libnl        # show description
+hdx u                       # update the ports tree
+hdx skp                     # fetch the skunkports tree
+hdx i skp/devel-mesa        # install a skunkport</pre>
       </section>
 
       <section id="hdxp">
@@ -97,6 +101,7 @@ hdx info devel-libnl        # show description</pre>
           <dt>devel</dt><dd>Libraries and build tools.</dd>
           <dt>misc</dt><dd>Everything else, including firmware and desktop programs.</dd>
         </dl>
+        <p style="margin-top:8px"><b>Skunkports.</b> A separate, unsupported tier for very heavy or experimental ports, kept in their own repository, <a href="https://github.com/daveydavy333/hdxp-skp">hdxp-skp</a>, and installed with an <code>skp/</code> prefix. Today it holds Mesa and a GLES2 build of wlroots.</p>
         <p style="margin-top:8px"><a href="https://github.com/daveydavy333/hdxp">hdxp on GitHub</a></p>
       </section>
 
@@ -105,9 +110,9 @@ hdx info devel-libnl        # show description</pre>
         <dl>
           <dt>Kernel</dt><dd>Mainline Linux 6.18 LTS, drivers built in, no initramfs.</dd>
           <dt>Userland</dt><dd>musl libc and busybox.</dd>
-          <dt>Init</dt><dd>situation, a small shell init.</dd>
+          <dt>Init</dt><dd>runit or situation, a small shell init. You choose after unpacking the base.</dd>
           <dt>Bootloader</dt><dd>Limine, UEFI.</dd>
-          <dt>Desktop</dt><dd>dwl on wlroots with software rendering, foot terminal, Firefox.</dd>
+          <dt>Desktop</dt><dd>dwl on wlroots, foot terminal, Firefox. Software rendering by default, optional GPU rendering through skunkports.</dd>
           <dt>Packages</dt><dd>Source ports through hdx. Firefox is the one exception: its port installs a prebuilt bundle.</dd>
         </dl>
       </section>
